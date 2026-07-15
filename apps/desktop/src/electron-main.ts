@@ -48,6 +48,30 @@ import { getIconPath } from "./icon.js";
 import { getArgs } from "./args.js";
 import { type ConfigOptions, loadConfig } from "./config.js";
 
+// On Linux Wayland with Vulkan/RADV, run GPU in-process to avoid GPU process
+// crashes. RADV is not a conformant Vulkan implementation and the GPU sandbox
+// triggers fatal crashes in it. Running in-process keeps hardware acceleration
+// while avoiding the crash. Users can override via --no-in-process-gpu.
+//
+// This only applies on Linux where RADV is detected. Intel/AMD proprietary or
+// NVIDIA users are unaffected. Revisit when RADV Vulkan conformance improves.
+if (
+    process.platform === "linux" &&
+    !process.argv.includes("--no-in-process-gpu") &&
+    !process.argv.includes("--disable-in-process-gpu")
+) {
+    try {
+        const gpuInfo = require("child_process").execSync(
+            "lspci -mm | grep -i vga",
+        ).toString("utf8");
+        if (gpuInfo.includes("AMD") || gpuInfo.includes("Radeon") || gpuInfo.includes("ATI")) {
+            app.commandLine.appendSwitch("in-process-gpu");
+        }
+    } catch {
+        // lspci not available or failed — skip GPU detection, don't add in-process-gpu
+    }
+}
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const buildConfig = getBuildConfig();
