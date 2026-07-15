@@ -144,14 +144,14 @@ async function start(): Promise<void> {
         // (https://github.com/element-hq/element-web/issues/7378)
         const preventRedirect = !!parsedUrl.params.threepid || parsedUrl.location.length > 0;
 
-        if (!preventRedirect) {
-            const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            const isAndroid = /Android/.test(navigator.userAgent);
-            if (isIos || isAndroid) {
-                if (document.cookie.indexOf("element_mobile_redirect_to_guide=false") === -1) {
-                    window.location.href = "mobile_guide/";
-                    return;
-                }
+        // Fionaro Chat: mobile redirect disabled — no native apps to promote.
+        // To re-enable, set RIOT_MOBILE_REDIRECT=true at build time or revert this.
+        const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isAndroid = /Android/.test(navigator.userAgent);
+        if ((isIos || isAndroid) && process.env.RIOT_MOBILE_REDIRECT === "true") {
+            if (document.cookie.indexOf("element_mobile_redirect_to_guide=false") === -1) {
+                window.location.href = "mobile_guide/";
+                return;
             }
         }
 
