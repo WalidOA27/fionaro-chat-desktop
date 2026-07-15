@@ -7,7 +7,7 @@
     },
     "brand": "Fionaro Chat",
     "disable_custom_urls": false,
-    "permalink_prefix": "https://matrix.fionaro.pw",
+    "permalink_prefix": "https://chat.fionaro.pw",
     "help_url": "https://fionaro.pw/help",
     "help_encryption_url": "https://fionaro.pw/help/encryption",
     "help_key_storage_url": "https://fionaro.pw/help/backup",

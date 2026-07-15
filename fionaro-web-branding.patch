@@ -1,0 +1,90 @@
+diff --git a/apps/desktop/fionaro/release/config.json b/apps/desktop/fionaro/release/config.json
+index 801c4df26f..c13a10a63d 100644
+--- a/apps/desktop/fionaro/release/config.json
++++ b/apps/desktop/fionaro/release/config.json
+@@ -7,7 +7,7 @@
+     },
+     "brand": "Fionaro Chat",
+     "disable_custom_urls": false,
+-    "permalink_prefix": "https://matrix.fionaro.pw",
++    "permalink_prefix": "https://chat.fionaro.pw",
+     "help_url": "https://fionaro.pw/help",
+     "help_encryption_url": "https://fionaro.pw/help/encryption",
+     "help_key_storage_url": "https://fionaro.pw/help/backup",
+diff --git a/apps/web/res/manifest.json b/apps/web/res/manifest.json
+index ff9b8edf30..7382a275a0 100644
+--- a/apps/web/res/manifest.json
++++ b/apps/web/res/manifest.json
+@@ -1,8 +1,8 @@
+ {
+-    "name": "Element",
+-    "short_name": "Element",
++    "name": "Fionaro Chat",
++    "short_name": "Fionaro",
+     "display": "standalone",
+-    "theme_color": "#76CFA6",
++    "theme_color": "#0DBD8B",
+     "start_url": "index.html",
+     "icons": [
+         {
+@@ -40,21 +40,5 @@
+             "sizes": "1024x1024",
+             "type": "image/png"
+         }
+-    ],
+-    "related_applications": [
+-        {
+-            "platform": "play",
+-            "url": "https://play.google.com/store/apps/details?id=im.vector.app",
+-            "id": "im.vector.app"
+-        },
+-        {
+-            "platform": "f-droid",
+-            "url": "https://f-droid.org/repository/browse/?fdid=im.vector.app",
+-            "id": "im.vector.app"
+-        },
+-        {
+-            "platform": "itunes",
+-            "url": "https://apps.apple.com/app/vector/id1083446067"
+-        }
+     ]
+ }
+diff --git a/apps/web/src/vector/index.html b/apps/web/src/vector/index.html
+index 15dfcc7303..b815024828 100644
+--- a/apps/web/src/vector/index.html
++++ b/apps/web/src/vector/index.html
+@@ -2,7 +2,7 @@
+ <html lang="en" style="height: 100%;">
+   <head>
+     <meta charset="utf-8">
+-    <title>Element</title>
++    <title>Fionaro Chat</title>
+     <link rel="apple-touch-icon" sizes="120x120" href="<%= require('../../res/vector-icons/120.png') %>">
+     <link rel="apple-touch-icon" sizes="144x144" href="<%= require('../../res/vector-icons/144.png') %>">
+     <link rel="apple-touch-icon" sizes="152x152" href="<%= require('../../res/vector-icons/152.png') %>">
+@@ -13,9 +13,9 @@
+     <link rel="icon" type="image/png" sizes="144x144" href="<%= require('../../res/vector-icons/144.png') %>">
+     <link rel="icon" type="image/png" sizes="512x512" href="<%= require('../../res/vector-icons/512.png') %>">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+-    <meta name="apple-mobile-web-app-title" content="Element">
+-    <meta name="application-name" content="Element">
+-    <meta name="theme-color" content="#ffffff">
++    <meta name="apple-mobile-web-app-title" content="Fionaro Chat">
++    <meta name="application-name" content="Fionaro Chat">
++    <meta name="theme-color" content="#0DBD8B">
+     <meta property="og:image" content="<%= og_image_url %>" />
+     <meta http-equiv="Content-Security-Policy" content="
+         default-src 'none';
+diff --git a/apps/web/webpack.config.ts b/apps/web/webpack.config.ts
+index 7799140f86..c9a142410f 100644
+--- a/apps/web/webpack.config.ts
++++ b/apps/web/webpack.config.ts
+@@ -52,7 +52,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
+ 
+ dotenv.config();
+ let ogImageUrl = process.env.RIOT_OG_IMAGE_URL;
+-if (!ogImageUrl) ogImageUrl = "https://app.element.io/themes/element/img/logos/opengraph.png";
++if (!ogImageUrl) ogImageUrl = "https://fionaro.pw/logo.png";
+ 
+ const cssThemes = {
+     // CSS themes
