@@ -725,7 +725,7 @@ export default (env: string, argv: Record<string, any>): webpack.Configuration =
                     { from: "vector-icons/**", context: path.resolve(__dirname, "res") },
                     { from: "decoder-ring/**", context: path.resolve(__dirname, "res") },
                     { from: "media/**", context: path.resolve(__dirname, "res/") },
-                    { from: "config.json", noErrorOnMissing: true },
+                    { from: "config.json" },
                     // Element Call embedded widget
                     {
                         from: "**",
