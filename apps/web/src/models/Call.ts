@@ -1008,7 +1008,28 @@ export class ElementCall extends Call {
         this.close(); // User is done with the call; tell the UI to close it
     };
 
-    public clean(): Promise<void> {
-        return Promise.resolve();
+    public async clean(): Promise<void> {
+        const myUserId = this.client.getUserId()!;
+        const currentDeviceId = this.client.getDeviceId()!;
+
+        // Remove our own stale call.member entries from previous sessions.
+        // These show as "waiting media" in EC and cause hasCallStarted=true,
+        // which prevents ringing notifications for new calls.
+        for (const membership of this.session.memberships) {
+            if (membership.sender === myUserId && membership.deviceId !== currentDeviceId) {
+                const stateKey = `_${myUserId}_${membership.deviceId}_m.call`;
+                try {
+                    await this.client.sendStateEvent(
+                        this.roomId,
+                        "org.matrix.msc3401.call.member",
+                        {},
+                        stateKey,
+                    );
+                    logger.log(`Removed stale call member ${myUserId}/${membership.deviceId} in room ${this.roomId}`);
+                } catch (e) {
+                    logger.warn(`Failed to remove stale call member: ${e}`);
+                }
+            }
+        }
     }
 }
