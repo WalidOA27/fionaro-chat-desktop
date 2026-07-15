@@ -48,11 +48,26 @@
     "branding": {
         "logo_link_url": "https://fionaro.pw",
         "auth_header_logo_url": "themes/element/img/logos/element-logo.svg",
-        "welcome_background_url": "themes/element/img/backgrounds/lake.jpg",
         "auth_footer_links": [
             {
                 "text": "fionaro.pw",
                 "url": "https://fionaro.pw"
+            }
+        ]
+    },
+    "default_theme": "light-custom",
+    "setting_defaults": {
+        "theme": "light-custom",
+        "custom_themes": [
+            {
+                "name": "Fionaro",
+                "colors": {
+                    "accent": "#7C3AED",
+                    "primary-color": "#7C3AED",
+                    "primary-color-hover": "#6D28D9",
+                    "menubar-bg-color": "#7C3AED",
+                    "username-colors": ["#7C3AED", "#6D28D9", "#8B5CF6"]
+                }
             }
         ]
     },
