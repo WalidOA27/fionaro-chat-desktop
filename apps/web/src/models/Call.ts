@@ -1012,22 +1012,30 @@ export class ElementCall extends Call {
         const myUserId = this.client.getUserId()!;
         const currentDeviceId = this.client.getDeviceId()!;
 
-        // Remove our own stale call.member entries from previous sessions.
-        // These show as "waiting media" in EC and cause hasCallStarted=true,
-        // which prevents ringing notifications for new calls.
-        for (const membership of this.session.memberships) {
-            if (membership.sender === myUserId && membership.deviceId !== currentDeviceId) {
-                const stateKey = `_${myUserId}_${membership.deviceId}_m.call`;
-                try {
-                    await this.client.sendStateEvent(
-                        this.roomId,
-                        "org.matrix.msc3401.call.member",
-                        {},
-                        stateKey,
-                    );
-                    logger.log(`Removed stale call member ${myUserId}/${membership.deviceId} in room ${this.roomId}`);
-                } catch (e) {
-                    logger.warn(`Failed to remove stale call member: ${e}`);
+        // Remove our own stale call.member entries from previous sessions
+        // by reading room state directly (session may not be synced yet at startup).
+        const callMemberEvents = this.room.currentState.getStateEvents("org.matrix.msc3401.call.member");
+        for (const event of callMemberEvents) {
+            const stateKey = event.getStateKey();
+            // State key format: _@user:server_DEVICEID_m.call
+            const parts = stateKey.split("_");
+            if (parts.length >= 3) {
+                const userId = parts[1];
+                const deviceId = parts[2];
+                if (userId === myUserId && deviceId !== currentDeviceId) {
+                    try {
+                        await this.client.sendStateEvent(
+                            this.roomId,
+                            "org.matrix.msc3401.call.member",
+                            {},
+                            stateKey,
+                        );
+                        logger.log(
+                            `Removed stale call member ${userId}/${deviceId} in room ${this.roomId}`,
+                        );
+                    } catch (e) {
+                        logger.warn(`Failed to remove stale call member: ${e}`);
+                    }
                 }
             }
         }
