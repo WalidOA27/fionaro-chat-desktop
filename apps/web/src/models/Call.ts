@@ -695,6 +695,10 @@ export class ElementCall extends Call {
             } else {
                 params.append("intent", voiceOnly ? ElementCallIntent.StartCallVoice : ElementCallIntent.StartCall);
             }
+            // Always skip the lobby for group calls to prevent per-user createRoom calls.
+            // Each participant must join the same room (this room) to see each other.
+            params.set("skipLobby", "true");
+            params.set("returnToLobby", "false");
         }
     }
 
@@ -733,7 +737,8 @@ export class ElementCall extends Call {
 
     /**
      * Generate the correct Element Call widget URL for creating or joining a call in this room.
-     * Unless `Developer.elementCallUrl` is set, the widget will use the embedded Element Call package.
+     * If `element_call.url` is set in config, uses that external EC instance (with /room/ path
+     * to bypass React Router home page route). Otherwise falls back to the bundled EC package.
      *
      * @param client
      * @param roomId
@@ -741,9 +746,9 @@ export class ElementCall extends Call {
      * @returns
      */
     private static generateWidgetUrl(client: MatrixClient, roomId: string, opts: WidgetGenerationParameters = {}): URL {
-        const elementCallUrlOverride = SettingsStore.getValue("Developer.elementCallUrl");
-        const url = elementCallUrlOverride
-            ? new URL(elementCallUrlOverride)
+        const elementCallUrl = SdkConfig.get("element_call").url;
+        const url = elementCallUrl
+            ? new URL("./room/#", elementCallUrl)
             : // this strips hash fragment from baseUrl
               new URL("./widgets/element-call/index.html#", window.location.href);
 

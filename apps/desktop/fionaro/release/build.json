@@ -1,0 +1,10 @@
+{
+    "appId": "pw.fionaro.chat",
+    "name": "fionaro-chat-desktop",
+    "productName": "Fionaro Chat",
+    "description": "Fionaro Chat — secure, self-hosted Matrix client",
+    "protocols": ["pw.fionaro.chat", "fionaro"],
+    "linux": {
+        "executableName": "fionaro-chat-desktop"
+    }
+}

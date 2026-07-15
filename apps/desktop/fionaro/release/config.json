@@ -1,0 +1,70 @@
+{
+    "default_server_name": "fionaro.pw",
+    "default_server_config": {
+        "m.homeserver": {
+            "base_url": "https://matrix.fionaro.pw"
+        }
+    },
+    "brand": "Fionaro Chat",
+    "disable_custom_urls": false,
+    "permalink_prefix": "https://matrix.fionaro.pw",
+    "help_url": "https://fionaro.pw/help",
+    "help_encryption_url": "https://fionaro.pw/help/encryption",
+    "help_key_storage_url": "https://fionaro.pw/help/backup",
+    "privacy_policy_url": "https://fionaro.pw/privacy",
+    "integrations_ui_url": "",
+    "integrations_rest_url": "",
+    "integrations_widgets_urls": [],
+    "bug_report_endpoint_url": "",
+    "show_labs_settings": false,
+    "enable_presence_by_hs_url": {
+        "https://matrix.fionaro.pw": false
+    },
+    "terms_and_conditions_links": [
+        {
+            "text": "Terms of Service",
+            "url": "https://fionaro.pw/terms"
+        },
+        {
+            "text": "Privacy Policy",
+            "url": "https://fionaro.pw/privacy"
+        },
+        {
+            "text": "Cookie Policy",
+            "url": "https://fionaro.pw/cookies"
+        }
+    ],
+    "features": {
+        "feature_video_rooms": true,
+        "feature_group_calls": true,
+        "feature_element_call_video_rooms": true
+    },
+    "element_call": {
+        "url": "https://call.fionaro.pw",
+        "use_exclusively": true,
+        "brand": "Fionaro Call",
+        "disable": false
+    },
+    "branding": {
+        "logo_link_url": "https://fionaro.pw",
+        "auth_header_logo_url": "themes/element/img/logos/element-logo.svg",
+        "welcome_background_url": "themes/element/img/backgrounds/lake.jpg",
+        "auth_footer_links": [
+            {
+                "text": "fionaro.pw",
+                "url": "https://fionaro.pw"
+            }
+        ]
+    },
+    "desktop_builds": {
+        "available": true,
+        "logo": "https://fionaro.pw/logo.png",
+        "url": "https://fionaro.pw/download"
+    },
+    "oidc_metadata": {
+        "client_uri": "https://fionaro.pw",
+        "logo_uri": "https://fionaro.pw/logo.png",
+        "tos_uri": "https://fionaro.pw/terms",
+        "policy_uri": "https://fionaro.pw/privacy"
+    }
+}
