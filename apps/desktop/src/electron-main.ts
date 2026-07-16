@@ -313,6 +313,12 @@ app.on("ready", async () => {
         setupMacosTitleBar(global.mainWindow);
     }
 
+    // Capture renderer console output (Element Web / Element Call JS logs)
+    // for debugging group calls, call.member events, and LiveKit connections.
+    global.mainWindow.webContents.on("console-message", (_ev, _level, message) => {
+        console.log(`[webapp] ${message}`);
+    });
+
     // Handle spellchecker
     // For some reason spellCheckerEnabled isn't persisted, so we have to use the store here
     global.mainWindow.webContents.session.setSpellCheckerEnabled(store.get("spellCheckerEnabled", true));

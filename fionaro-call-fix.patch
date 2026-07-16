@@ -1,0 +1,50 @@
+diff --git a/apps/web/src/IConfigOptions.ts b/apps/web/src/IConfigOptions.ts
+index a3a6a32c91..7fc4bab0df 100644
+--- a/apps/web/src/IConfigOptions.ts
++++ b/apps/web/src/IConfigOptions.ts
+@@ -127,6 +127,7 @@ export interface IConfigOptions {
+         obey_asserted_identity?: boolean; // MSC3086
+     };
+     element_call: {
++        url?: string;
+         guest_spa_url?: string;
+         use_exclusively?: boolean;
+         brand?: string;
+diff --git a/apps/web/src/models/Call.ts b/apps/web/src/models/Call.ts
+index 6cf95a0681..adae5861fc 100644
+--- a/apps/web/src/models/Call.ts
++++ b/apps/web/src/models/Call.ts
+@@ -695,6 +695,10 @@ export class ElementCall extends Call {
+             } else {
+                 params.append("intent", voiceOnly ? ElementCallIntent.StartCallVoice : ElementCallIntent.StartCall);
+             }
++            // Always skip the lobby for group calls to prevent per-user createRoom calls.
++            // Each participant must join the same room (this room) to see each other.
++            params.set("skipLobby", "true");
++            params.set("returnToLobby", "false");
+         }
+     }
+ 
+@@ -733,7 +737,8 @@ export class ElementCall extends Call {
+ 
+     /**
+      * Generate the correct Element Call widget URL for creating or joining a call in this room.
+-     * Unless `Developer.elementCallUrl` is set, the widget will use the embedded Element Call package.
++     * If `element_call.url` is set in config, uses that external EC instance (with /room/ path
++     * to bypass React Router home page route). Otherwise falls back to the bundled EC package.
+      *
+      * @param client
+      * @param roomId
+@@ -741,9 +746,9 @@ export class ElementCall extends Call {
+      * @returns
+      */
+     private static generateWidgetUrl(client: MatrixClient, roomId: string, opts: WidgetGenerationParameters = {}): URL {
+-        const elementCallUrlOverride = SettingsStore.getValue("Developer.elementCallUrl");
+-        const url = elementCallUrlOverride
+-            ? new URL(elementCallUrlOverride)
++        const elementCallUrl = SdkConfig.get("element_call").url;
++        const url = elementCallUrl
++            ? new URL("./room/#", elementCallUrl)
+             : // this strips hash fragment from baseUrl
+               new URL("./widgets/element-call/index.html#", window.location.href);
+ 
