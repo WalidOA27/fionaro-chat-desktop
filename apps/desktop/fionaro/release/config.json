@@ -55,18 +55,16 @@
             }
         ]
     },
-    "default_theme": "light-custom",
+    "default_theme": "custom-FionaroDark",
     "setting_defaults": {
-        "theme": "light-custom",
+        "theme": "custom-FionaroDark",
+        "use_system_theme": false,
         "custom_themes": [
             {
-                "name": "Fionaro",
+                "name": "FionaroDark",
+                "is_dark": true,
                 "colors": {
-                    "accent": "#7C3AED",
-                    "primary-color": "#7C3AED",
-                    "primary-color-hover": "#6D28D9",
-                    "menubar-bg-color": "#7C3AED",
-                    "username-colors": ["#7C3AED", "#6D28D9", "#8B5CF6"]
+                    "accent": "#7C3AED"
                 }
             }
         ]
