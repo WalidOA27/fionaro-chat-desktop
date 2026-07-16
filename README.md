@@ -1,117 +1,268 @@
-[![Chat](https://img.shields.io/matrix/element-web:matrix.org?logo=matrix)](https://matrix.to/#/#element-web:matrix.org)
-![Tests](https://github.com/element-hq/element-web/actions/workflows/tests.yaml/badge.svg)
-![Static Analysis](https://github.com/element-hq/element-web/actions/workflows/static_analysis.yaml/badge.svg)
-[![Localazy](https://img.shields.io/endpoint?url=https%3A%2F%2Fconnect.localazy.com%2Fstatus%2Felement-web%2Fdata%3Fcontent%3Dall%26title%3Dlocalazy%26logo%3Dtrue)](https://localazy.com/p/element-web)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=element-web&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=element-web)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=element-web&metric=coverage)](https://sonarcloud.io/summary/new_code?id=element-web)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=element-web&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=element-web)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=element-web&metric=bugs)](https://sonarcloud.io/summary/new_code?id=element-web)
+# Fionaro Chat Desktop & Web
 
-# Element
+**Fionaro Chat** is a fully self-hosted, rebranded fork of [Element Web](https://github.com/element-hq/element-web) — a Matrix client built with the [Matrix JS SDK](https://github.com/matrix-org/matrix-js-sdk), React, and Electron.
 
-Element (formerly known as Vector and Riot) is a Matrix web & desktop client built using the [Matrix
-JS SDK](https://github.com/matrix-org/matrix-js-sdk).
+This fork connects exclusively to the Fionaro infrastructure and removes all third-party analytics, telemetry, and external dependencies.
 
-# Supported Environments
-
-Element has several tiers of support for different environments:
-
-- Supported
-    - Definition:
-        - Issues **actively triaged**, regressions **block** the release
-    - Last 2 major versions of Chrome, Firefox, and Edge on desktop OSes
-    - Last 2 versions of Safari
-    - Latest release of official Element Desktop app on desktop OSes
-    - Desktop OSes means macOS, Windows, and Linux versions for desktop devices
-      that are actively supported by the OS vendor and receive security updates
-- Best effort
-    - Definition:
-        - Issues **accepted**, regressions **do not block** the release
-        - The wider Element Products (including Element Call and the Enterprise Server Suite) do still not officially support these browsers.
-        - The element web project and its contributors should keep the client functioning and gracefully degrade where other sibling features (E.g. Element Call) may not function.
-    - Last major release of Firefox ESR and Chrome/Edge Extended Stable
-- Community Supported
-    - Definition:
-        - Issues **accepted**, regressions **do not block** the release
-        - Community contributions are welcome to support these issues
-    - Mobile web for current stable version of Chrome, Firefox, and Safari on Android, iOS, and iPadOS
-- Not supported
-    - Definition: Issues only affecting unsupported environments are **closed**
-    - Everything else
-
-The period of support for these tiers should last until the releases specified above, plus 1 app release cycle(2 weeks). In the case of Firefox ESR this is extended further to allow it land in Debian Stable.
-
-For accessing Element on an Android or iOS device, we currently recommend the
-native apps [element-x-android](https://github.com/element-hq/element-x-android)
-and [element-x-ios](https://github.com/element-hq/element-x-ios).
-
-# Getting Started
-
-The easiest way to test Element is to just use the hosted copy at <https://app.element.io>.
-The `develop` branch is continuously deployed to <https://develop.element.io>
-for those who like living dangerously.
-
-To host your own instance of Element see [Installing Element Web](docs/install.md).
-
-To install Element as a desktop application, see [Running as a desktop app](#running-as-a-desktop-app) below.
+- **Web client:** [https://chat.fionaro.pw](https://chat.fionaro.pw)
+- **Desktop packages:** [GitHub Releases](https://github.com/WalidOA27/fionaro-chat-desktop/releases)
+- **Android APK:** [fionaro-chat-android](https://github.com/WalidOA27/fionaro-chat-android)
 
 ---
 
-# Monorepo
+## Quick Install
 
-This repository is a monorepo hosting Element Web and other related projects in various subdirectories.
-You can read more about the structure [here](docs/monorepo.md).
+### Debian/Ubuntu (.deb)
 
-# Element Web
+```bash
+curl -sL https://github.com/WalidOA27/fionaro-chat-desktop/releases/download/v1.0.0/fionaro-chat-desktop_1.0.0_amd64.deb \
+  -o /tmp/fionaro-chat-desktop.deb
+sudo apt install /tmp/fionaro-chat-desktop.deb
+# Launch: fionaro-chat-desktop
+```
 
-To learn more about Element Web [click here](apps/web/README.md)
+### Arch Linux (AUR)
 
-# Running as a Desktop app
+No AUR package yet. For now, use the AppImage or .tar.gz:
 
-Element can also be run as a desktop app, wrapped in Electron. You can download a
-pre-built version from <https://element.io/get-started> or, if you prefer,
-build it yourself.
+```bash
+# AppImage (portable, no install needed)
+curl -sL https://github.com/WalidOA27/fionaro-chat-desktop/releases/download/v1.0.0/Fionaro-Chat-1.0.0.AppImage \
+  -o ~/Fionaro-Chat.AppImage
+chmod +x ~/Fionaro-Chat.AppImage
+~/Fionaro-Chat.AppImage
+```
 
-To build it yourself, follow the instructions at <https://github.com/element-hq/element-web/tree/develop/apps/desktop>.
+### Any Linux (.tar.gz)
 
-Many thanks to @aviraldg for the initial work on the Electron integration.
+```bash
+curl -sL https://github.com/WalidOA27/fionaro-chat-desktop/releases/download/v1.0.0/fionaro-chat-desktop-1.0.0.tar.gz \
+  -o /tmp/fionaro-chat-desktop.tar.gz
+tar -xzf /tmp/fionaro-chat-desktop.tar.gz -C ~/
+~/fionaro-chat-desktop-1.0.0/fionaro-chat-desktop
+```
 
-The [configuration docs](docs/config.md#desktop-app-configuration) show how to override the desktop app's default settings if desired.
+### Web (no install)
 
-# Development
+Open [https://chat.fionaro.pw](https://chat.fionaro.pw) in any modern browser. Installable as PWA.
 
-Please read through the following:
+---
 
-1. [Developer guide](./developer_guide.md)
-2. [Code style](./code_style.md)
-3. [Contribution guide](./CONTRIBUTING.md)
+## What's Changed
 
-# Translations
+### Branding & Identity
+- Application identity: `pw.fionaro.chat` (app ID, protocols, deep links)
+- Product name: **Fionaro Chat**
+- All references to "Element" replaced with "Fionaro Chat"
+- Logo: circular, black background, white symbol, purple accent (`#7C3AED`)
+- Theme colors updated (dark mode default, purple accent)
+- PWA manifest and meta tags rebranded
 
-To add a new translation, head to the [translating doc](docs/translating.md).
+### Infrastructure & Endpoints
+All Matrix and related endpoints point to the Fionaro infrastructure:
 
-For a developer guide, see the [translating dev doc](docs/translating-dev.md).
+| Service | Endpoint | Backend |
+|---------|----------|---------|
+| Homeserver | `https://matrix.fionaro.pw` | Synapse |
+| Element Call | `https://call.fionaro.pw` | Element Call v0.21.0 |
+| Push | `https://push.fionaro.pw` | ntfy (UnifiedPush) |
+| Auth | `https://auth.fionaro.pw` | Matrix Auth |
+| LiveKit SFU | `https://livekit.fionaro.pw` | LiveKit |
+| TURN | `turn.fionaro.pw` | coturn |
+| Registration | `https://matrix.fionaro.pw/register` | Synapse |
 
-# Triaging issues
+### Distribution
+- **Web:** Served at `chat.fionaro.pw` (Caddy, Let's Encrypt)
+- **Desktop:** `.deb`, `.AppImage`, `.tar.gz` via GitHub Releases
+- No Google Play, no Microsoft Store, no macOS App Store
+- No analytics, telemetry, or crash reporting to external services
 
-Issues are triaged by community members and the Web App Team, following the [triage process](https://github.com/element-hq/element-meta/wiki/Triage-process).
+### Variant System
+The desktop app uses Electron Builder's variant system. To build with Fionaro branding:
 
-We use [issue labels](https://github.com/element-hq/element-meta/wiki/Issue-labelling) to sort all incoming issues.
+```bash
+VARIANT_PATH=fionaro/release/build.json npx electron-builder --linux tar.gz deb AppImage
+```
 
-## Copyright & License
+Default variant (Element) is untouched — the Fionaro variant lives in `apps/desktop/fionaro/`.
 
-Copyright (c) 2014-2017 OpenMarket Ltd
-Copyright (c) 2017 Vector Creations Ltd
-Copyright (c) 2017-2025 New Vector Ltd
+### Group Call Fix (v1.0.0)
 
-This software is multi licensed by New Vector Ltd (Element). It can be used either:
+**Problem:** In Element Call v0.21.0, group calls create a new Matrix room per call via `fet()` → `createRoom()`. Each participant created their own room, so users never saw each other.
 
-(1) for free under the terms of the GNU Affero General Public License (as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version); OR
+**Root cause (Web/Desktop):** The Element Call widget loads without `skipLobby=true` by default (only sets it when Shift+click). Without `skipLobby`, EC shows a lobby → user clicks "Join" → `fet()` runs → `createRoom()` → each user gets a different room.
 
-(2) for free under the terms of the GNU General Public License (as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version); OR
+**Fix (3 parts):**
 
-(3) under the terms of a paid-for Element Commercial License agreement between you and Element (the terms of which may vary depending on what you and Element have agreed to).
-Unless required by applicable law or agreed to in writing, software distributed under the Licenses is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the Licenses for the specific language governing permissions and limitations under the Licenses.
+| Component | Before (broken) | After (fixed) | Layer |
+|-----------|-----------------|---------------|-------|
+| EC base URL | `Developer.elementCallUrl` (Labs setting) | `element_call.url` from `SdkConfig` | `Call.ts` |
+| Path collision | `/` → EC home page renders | `/room/` → EC call view renders | `Call.ts` |
+| `skipLobby` | Only on Shift+click | Always forced for group calls | `Call.ts` |
+| Call room | `createRoom` via widget API | Original Matrix room (shared) | `appendRoomParams` |
 
-Please contact [licensing@element.io](mailto:licensing@element.io) to purchase
-an Element commercial license for this software.
+**`appendRoomParams` forces for all non-DM group calls:**
+
+```typescript
+params.set("skipLobby", "true");
+params.set("returnToLobby", "false");
+```
+
+### Stale Device Cleanup
+
+When a call crashes without a clean hangup, stale `m.call.member` entries remain in room state. These show as "waiting media" and prevent proper ringing notifications.
+
+**Fix in `Call.ts`:** `ElementCall.clean()` — previously a noop — now reads `org.matrix.msc3401.call.member` state events from room state on startup and removes stale entries belonging to the current user but from different device IDs:
+
+```typescript
+public async clean(): Promise<void> {
+    // Removes stale call.member entries for the current user
+    // (previous sessions, crashed clients) by sending empty
+    // state events for those device IDs.
+}
+```
+
+### GPU Compatibility
+
+Electron + RADV (AMD Vulkan) crashes the GPU process on Linux. The fix runs GPU in-process (`--in-process-gpu`) when detected.
+
+```typescript
+// Auto-detected: lspci shows AMD/Radeon → in-process-gpu
+// Fallback (AppImage sandbox, no lspci) → in-process-gpu
+```
+
+Users can override: `--no-in-process-gpu` to restore separate GPU process.
+
+### Push & Notifications
+- Web: Web Push / PWA
+- Desktop: Notifications via system tray (no external push gateway needed)
+- Desktop: Notification sounds replaced (no "Element Default" / "Element Fade")
+
+### Removed / Disabled
+- Sentry / PostHog integration (all analytics nulled)
+- Rageshake / bug report endpoint (empty URL)
+- Element branding strings, logos, and meta tags
+- All Element-specific URLs and endpoints
+- Mobile redirect (disabled — Fionaro Chat has no native mobile apps)
+- `welcome_background_url` removed (custom background via CSS body)
+- `mobile_guide_toast` disabled
+- `mobile_builds` set to null
+
+---
+
+## Build Instructions
+
+### Prerequisites
+- Node.js ≥22
+- pnpm (use the version in `package.json` — currently `11.2.2`)
+- Rust toolchain (for native modules — optional)
+
+### Build Webapp
+
+```bash
+git clone https://github.com/WalidOA27/fionaro-chat-desktop.git
+cd fionaro-chat-desktop
+pnpm install
+rm -rf apps/web/webapp apps/web/config.json
+pnpm exec nx build element-web --skip-nx-cache
+```
+
+Webapp output: `apps/web/webapp/`
+
+### Build Desktop Packages
+
+```bash
+cd apps/desktop
+ln -s ../web/webapp ./webapp
+npx asar p webapp webapp.asar
+VARIANT_PATH=fionaro/release/build.json npx electron-builder --linux tar.gz deb AppImage
+```
+
+### Run in Dev Mode
+
+```bash
+cd apps/desktop
+VARIANT_PATH=fionaro/release npx electron . --no-sandbox
+```
+
+### Output
+
+```
+apps/desktop/dist/
+├── fionaro-chat-desktop_1.0.0_amd64.deb
+├── Fionaro-Chat-1.0.0.AppImage
+└── fionaro-chat-desktop-1.0.0.tar.gz
+```
+
+---
+
+## Architecture
+
+```
+fionaro-chat-desktop/
+├── apps/
+│   ├── web/              # Element Web webapp (React SPA)
+│   │   ├── src/          # Source code (incl. Call.ts fixes)
+│   │   ├── webapp/       # Built webapp output
+│   │   └── res/          # Themes, icons, manifest
+│   └── desktop/          # Electron wrapper
+│       ├── src/          # Electron main process
+│       ├── fionaro/      # Fionaro variant (build.json, config.json)
+│       ├── build/        # Desktop icon
+│       └── dist/         # Build outputs (.deb, .AppImage, .tar.gz)
+├── docs/                 # Element Web documentation
+└── fionaro-desktop.patch # Reapplicable cumulative patch (1285 lines)
+```
+
+## Patch Files
+
+All Fionaro modifications are available as reapplicable `.patch` files in the repo root:
+
+| Patch | Lines | What it covers |
+|-------|-------|----------------|
+| `fionaro-desktop.patch` | 1285 | All changes (config, branding, Call.ts, build system, etc.) |
+| `fionaro-call-fix.patch` | 50 | Group call fix only (Call.ts + IConfigOptions.ts) |
+| `fionaro-web-branding.patch` | 90 | Web branding only (index.html, manifest, config.json) |
+
+To apply to a clean Element Web source:
+
+```bash
+git checkout v1.12.23
+git apply fionaro-desktop.patch
+```
+
+---
+
+## Security Notes
+
+> **This fork is NOT affiliated with Element or the Element Web project.**  
+> It is a completely independent, self-hosted deployment of the Element Web codebase.
+
+### What is NOT in this fork
+- No upstream Element keypairs, certificates, or credentials
+- No connection to Element's infrastructure
+- No Element branding or trademarked assets
+- No third-party analytics, telemetry, or crash reporting
+
+### Audit Surface
+- All Matrix traffic goes through `matrix.fionaro.pw` (Synapse)
+- All calls go through `call.fionaro.pw` (Element Call) + `livekit.fionaro.pw` (LiveKit)
+- Push notifications via `push.fionaro.pw` (ntfy)
+- TURN via `turn.fionaro.pw` (coturn)
+- Web client served at `chat.fionaro.pw` (Caddy, Let's Encrypt auto-HTTPS)
+
+---
+
+## License
+
+This fork inherits the dual license of Element Web:
+- GNU AGPL v3 (or later) — see [LICENSE](LICENSE)
+- GNU GPL v3 (or later)
+- Element Commercial License (available from Element)
+
+> **This fork does NOT grant any rights to Element branding, trademarks, or infrastructure.**  
+> All Element branding has been removed and replaced with Fionaro branding.
+
+---
+
+*Forked from [element-hq/element-web](https://github.com/element-hq/element-web) at tag `v1.12.23`.*
