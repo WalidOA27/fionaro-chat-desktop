@@ -50,14 +50,6 @@ Open [https://chat.fionaro.pw](https://chat.fionaro.pw) in any modern browser. I
 
 ## What's Changed
 
-### Branding & Identity
-- Application identity: `pw.fionaro.chat` (app ID, protocols, deep links)
-- Product name: **Fionaro Chat**
-- All references to "Element" replaced with "Fionaro Chat"
-- Logo: circular, black background, white symbol, purple accent (`#7C3AED`)
-- Theme colors updated (dark mode default, purple accent)
-- PWA manifest and meta tags rebranded
-
 ### Infrastructure & Endpoints
 All Matrix and related endpoints point to the Fionaro infrastructure:
 
