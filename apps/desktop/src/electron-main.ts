@@ -68,7 +68,9 @@ if (
             app.commandLine.appendSwitch("in-process-gpu");
         }
     } catch {
-        // lspci not available or failed — skip GPU detection, don't add in-process-gpu
+        // lspci not available (e.g. inside AppImage sandbox) — safe default:
+        // enable in-process-gpu to avoid RADV crashes on unknown Linux GPUs
+        app.commandLine.appendSwitch("in-process-gpu");
     }
 }
 

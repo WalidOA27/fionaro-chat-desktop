@@ -129,7 +129,7 @@ const config: Omit<Writable<Configuration>, "electronFuses"> & {
         electron_protocol: variant.protocols[0],
     },
     linux: {
-        target: ["tar.gz", "deb"],
+        target: ["tar.gz", "deb", "AppImage"],
         category: "Network;InstantMessaging;Chat",
         icon: "icon.png",
         executableName: variant.name, // element-desktop or element-desktop-nightly
